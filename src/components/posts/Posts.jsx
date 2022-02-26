@@ -1,14 +1,36 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 import Post from "../post/Post";
 import "./posts.css";
 
+
+
+
 export default function Posts() {
+  const [Posts,setPosts]=useState([])
+  const { search } = useLocation()
+  const param = useParams()
+  console.log("Search",search)
+  console.log("Params",param)
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await axios.get("http://localhost:5000/api/posts/get");
+      setPosts(res.data);
+    };
+    fetchPosts();
+  }, [search]);
+  console.log(Posts)
   return (
     <div className="posts">
-      <Post img="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" />
-      <Post img="https://images.pexels.com/photos/6758029/pexels-photo-6758029.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-      <Post img="https://images.pexels.com/photos/6711867/pexels-photo-6711867.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"/>
-      <Post img="https://images.pexels.com/photos/5490778/pexels-photo-5490778.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"/>
-      <Post img="https://images.pexels.com/photos/4916559/pexels-photo-4916559.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"/>
+      {
+        Posts.map((post)=>{
+          return <Post post={post}/>
+        })
+      }
+      
     </div>
   );
 }

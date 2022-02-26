@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import "./post.css";
 
-export default function Post({img}) {
+export default function Post({post}) {
+  console.log(post)
   return (
     <div className="post">
       <img
         className="postImg"
-        src={img}
-        alt=""
+        //src={}
+        alt="img"
       />
       <div className="postInfo">
         <div className="postCats">
@@ -23,18 +24,15 @@ export default function Post({img}) {
           </span>
         </div>
         <span className="postTitle">
-          <Link to="/post/abc" className="link">
-            Lorem ipsum dolor sit amet
+          <Link to={`/post/${post._id}`} className="link">
+            {post.posttitle}
           </Link>
         </span>
         <hr />
         <span className="postDate">1 hour ago</span>
       </div>
       <p className="postDesc">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-        officia architecto deserunt deleniti? Labore ipsum aspernatur magnam
-        fugiat, reprehenderit praesentium blanditiis quos cupiditate ratione
-        atque, exercitationem quibusdam, reiciendis odio laboriosam?
+        {post.postdesc}
       </p>
     </div>
   );
