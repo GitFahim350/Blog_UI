@@ -6,9 +6,12 @@ import Settings from "./pages/settings/Settings";
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "./components/context/context";
 
 function App() {
-  const currentUser = false;
+  const currentUser = useContext(Context);
+  console.log("Current user",currentUser)
   return (
     <Router>
       <Topbar />
@@ -20,15 +23,15 @@ function App() {
           <Homepage />
         </Route>
         <Route path="/register">
-          {currentUser ? <Homepage /> : <Register />}
+          {currentUser.user ? <Homepage /> : <Register />}
         </Route>
-        <Route path="/login">{currentUser ? <Homepage /> : <Login />}</Route>
+        <Route path="/login">{currentUser.user ? <Homepage /> : <Login />}</Route>
         <Route path="/post/:id">
           <Single />
         </Route>
-        <Route path="/write">{currentUser ? <Write /> : <Login />}</Route>
+        <Route path="/write">{currentUser.user ? <Write /> : <Login />}</Route>
         <Route path="/settings">
-          {currentUser ? <Settings /> : <Login />}
+          {currentUser.user ? <Settings /> : <Login />}
         </Route>
       </Switch>
     </Router>

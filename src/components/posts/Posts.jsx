@@ -21,13 +21,13 @@ export default function Posts() {
       setPosts(res.data);
     };
     fetchPosts();
-  }, [search]);
-  console.log(Posts)
+  }, []);
+  
   return (
     <div className="posts">
       {
         Posts.map((post)=>{
-          return <Post post={post}/>
+          return <Post key={post._id} post={post}/>//
         })
       }
       
